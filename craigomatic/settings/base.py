@@ -8,7 +8,6 @@ root = lambda *x: os.path.join(BASE_DIR, *x)
 
 sys.path.insert(0, root('apps'))
 
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'CHANGE THIS!!!'
 
@@ -27,7 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles'
-]
+] # yapf: disable
 
 PROJECT_APPS = []
 
@@ -74,17 +73,15 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = '/static/'
-
 
 # Additional locations of static files
 
 STATICFILES_DIRS = (
     root('assets'),
-)
+) # yapf: disable
 
 TEMPLATES = [
     {
@@ -106,7 +103,7 @@ TEMPLATES = [
             ],
         },
     }
-]
+] # yapf: disable
 
 # Password validation
 
@@ -125,13 +122,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # .local.py overrides all the common settings.
 try:
     from .local import *  # noqa
 except ImportError:
     pass
-
 
 # importing test settings file if necessary
 if IN_TESTING:
