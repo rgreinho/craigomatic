@@ -47,21 +47,14 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'craigomatic.urls'
 
+ADMINS = (
+    ('Rémy Greinhofer', 'remy.greinhofer@gmail.com'),
+)  # yapf: disable
+
+MANAGERS = ADMINS
+
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'craigomatic.wsgi.application'
-
-# Database
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'craigomatic',
-#         'USER': 'postgres',
-#         'PASSWORD': '',
-#         'HOST': '',  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-#         'PORT': '',  # Set to empty string for default.
-#     }
-# }
 
 # Internationalization
 
@@ -83,7 +76,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     root('assets'),
-) # yapf: disable
+)  # yapf: disable
 
 TEMPLATES = [
     {
@@ -105,7 +98,7 @@ TEMPLATES = [
             ],
         },
     }
-] # yapf: disable
+]  # yapf: disable
 
 # Password validation
 

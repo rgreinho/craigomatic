@@ -1,12 +1,5 @@
 from .base import *  # noqa
 
-
-ADMINS = (
-    ('Rémy Greinhofer', 'remy.greinhofer@gmail.com'),
-) # yapf: disable
-
-MANAGERS = ADMINS
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
