@@ -9,6 +9,7 @@
 *.so
 .coverage
 .DS_Store
+.idea
 .installed.cfg
 .mr.developer.cfg
 .project
