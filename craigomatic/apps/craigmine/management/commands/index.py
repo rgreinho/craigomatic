@@ -11,9 +11,12 @@ class Command(BaseCommand):
     help = "Indexes new search results."
 
     def handle(self, *args, **options):
-        tag, found, count, last_update = index_content()
-        self.stdout.write("{} items found for '{}'.".format(found, tag))
-        self.stdout.write("{} items created in '{}' (since {}).".format(count, tag, last_update))
+        for content in index_content():
+            import q;
+            q(content)
+            tag, found, count, last_update = content
+            self.stdout.write("{} items found for '{}'.".format(found, tag))
+            self.stdout.write("{} items created in '{}' (since {}).".format(count, tag, last_update))
 
 
 def index_content():
@@ -32,7 +35,10 @@ def index_content():
     """
     # Retrieve all searches.
     searches = Search.objects.all()
+    if not searches:
+        return None, 0, 0, None
 
+    results = []
     for search in searches:
         queries = search.query
         custom_search_args = search.custom_search_args
@@ -68,10 +74,12 @@ def index_content():
                                     post_date=requested_item.get("post_date"),
                                     pnr=requested_item.get("pnr"),
                                     price=requested_item.get("price"),
-                                    title=requested_item.get("title"))
+                                    title=requested_item.get("title", '?') or '?')
                 count += 1
 
         # Update the search.
         search.save()
 
-        return search.tag, len(requested_items), count, search.last_update
+        results.append((search.tag, len(requested_items), count, search.last_update))
+
+    return results
