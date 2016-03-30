@@ -1,9 +1,6 @@
-# Versions are left out on purpose in order for you to use the latest ones.
-# After the first "pip install -r", just run "pip freeze" and add the version
-# to each package in each requirements/*.txt.
-
-Django
-
-django-model-utils
-
-psycopg2
+Django==1.9.4
+django-model-utils==2.4
+lxml==3.4.4
+pbr==1.8.1
+psycopg2==2.6.1
+requests==2.7.0
