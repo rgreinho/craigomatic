@@ -25,10 +25,12 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles'
-] # yapf: disable
+    'django.contrib.staticfiles',
+]  # yapf: disable
 
-PROJECT_APPS = []
+PROJECT_APPS = [
+    'craigmine',
+]  # yapf: disable
 
 INSTALLED_APPS += PROJECT_APPS
 
@@ -50,24 +52,24 @@ WSGI_APPLICATION = 'craigomatic.wsgi.application'
 
 # Database
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'craigomatic',
-        'USER': 'postgres',
-        'PASSWORD': '',
-        'HOST': '',  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',  # Set to empty string for default.
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'craigomatic',
+#         'USER': 'postgres',
+#         'PASSWORD': '',
+#         'HOST': '',  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+#         'PORT': '',  # Set to empty string for default.
+#     }
+# }
 
 # Internationalization
 
-LANGUAGE_CODE = 'en-gb'
+LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Chicago'
 
-USE_I18N = False
+USE_I18N = True
 
 USE_L10N = True
 
