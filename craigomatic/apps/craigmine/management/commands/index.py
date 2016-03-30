@@ -33,12 +33,14 @@ def index_content():
 
     :returns: a tuple containing information about the execution of the date indexed.
     """
+    # Prepare results variable.
+    results = []
+
     # Retrieve all searches.
     searches = Search.objects.all()
     if not searches:
-        return None, 0, 0, None
+        return results
 
-    results = []
     for search in searches:
         queries = search.query
         custom_search_args = search.custom_search_args
