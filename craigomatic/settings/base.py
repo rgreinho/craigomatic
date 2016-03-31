@@ -33,6 +33,7 @@ INSTALLED_APPS = [
 
 PROJECT_APPS = [
     'craigmine',
+    'django_crontab',
 ]  # yapf: disable
 
 INSTALLED_APPS += PROJECT_APPS
@@ -74,7 +75,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_ROOT = root('static')
 STATIC_URL = '/static/'
-# ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -122,6 +122,12 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+]
+
+# Django-crontab
+CRONJOBS = [
+    ('* 4,10,16,22 * * *', 'craigmine.management.commands.index,index_content'),
+    ('* 2 * * *', 'craigmine.management.commands.purge.delete_items', ['7']),
 ]
 
 # .local.py overrides all the common settings.
