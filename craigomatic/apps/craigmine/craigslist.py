@@ -225,6 +225,8 @@ class CraigslistItem:
         """
         # Xpath query to find the title within the item.
         title_raw = self.item.xpath('span[@class="txt"]//span[@class="pl"]//a/span[@id="titletextonly"]/text()')
+        if not title_raw:
+            title_raw = self.item.xpath('span[@class="txt"]//span[@class="pl"]//a/text()')
 
         # Return the raw value if necessary.
         if raw:

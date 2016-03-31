@@ -8,7 +8,8 @@ from craigmine.craigslist import Craigslist
 from craigmine.craigslist import CraigslistItem
 from craigmine.craigslist import querystring_to_dict
 from craigmine.tests.ad_samples import FULL_RESULT_PAGE_FIXIES
-from craigmine.tests.ad_samples import HOUSING_AD
+from craigmine.tests.ad_samples import HOUSING_AD_00
+from craigmine.tests.ad_samples import HOUSING_AD_01
 
 
 class CraigslistTestCase(TestCase):
@@ -26,9 +27,9 @@ class CraigslistTestCase(TestCase):
         self.assertIsNotNone(parsed_items)
 
 
-class CraigslistItemTestCase(TestCase):
+class CraigslistItemTestCase_02(TestCase):
     def setUp(self):
-        doc = html.document_fromstring(HOUSING_AD)
+        doc = html.document_fromstring(HOUSING_AD_00)
         item_root = doc.xpath('//p')
         self.cl_item = CraigslistItem(item_root[0])
 
@@ -60,6 +61,43 @@ class CraigslistItemTestCase(TestCase):
     def test_title(self):
         actual = self.cl_item.title()
         expected = 'Round Rock, Forest Creek Area,'
+        self.assertEqual(actual, expected)
+
+
+class CraigslistItemTestCase_01(TestCase):
+    def setUp(self):
+        doc = html.document_fromstring(HOUSING_AD_01)
+        item_root = doc.xpath('//p')
+        self.cl_item = CraigslistItem(item_root[0])
+
+    def test_link(self):
+        actual = self.cl_item.link()
+        expected = '/apa/5458670201.html'
+        self.assertEqual(actual, expected)
+
+    def test_pnr(self):
+        actual = self.cl_item.pnr()
+        expected = 'East Campus'
+        self.assertEqual(actual, expected)
+
+    def test_post_id(self):
+        actual = self.cl_item.id()
+        expected = '5458670201'
+        self.assertEqual(actual, expected)
+
+    def test_post_date(self):
+        actual = self.cl_item.published_date()
+        expected = timezone.make_aware(datetime(2016, 2, 21, 19, 34))
+        self.assertEqual(actual, expected)
+
+    def test_price(self):
+        actual = self.cl_item.price()
+        expected = '2695'
+        self.assertEqual(actual, expected)
+
+    def test_title(self):
+        actual = self.cl_item.title()
+        expected = 'Prelease For August 2016 - 4 Bedroom Close To UT campus'
         self.assertEqual(actual, expected)
 
 

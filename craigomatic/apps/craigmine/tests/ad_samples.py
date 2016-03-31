@@ -1,4 +1,4 @@
-HOUSING_AD = """
+HOUSING_AD_00 = """
 <p class="row" data-pid="5505576050">
     <a href="/apa/5505576050.html" class="i" data-ids="0:00J0J_gss8d0U8fWG,0:01010_8j2pRi4cNpY,0:00n0n_4h2qcAaFCtf,0:00f0f_leV0VnfLl9S,0:00v0v_5BJA1ywTXma,0:01515_t6OFaDAsdo,0:00505_7o1HwCAANX6,0:00d0d_jI5DU2npq38,0:00606_7wxacKGKQ68"></a>
     <span class="txt">
@@ -25,6 +25,38 @@ HOUSING_AD = """
             <span class="unbanish" title="restore">
                 <span class="trash red">
                 </span>
+            </span>
+        </span>
+    </span>
+</p>
+"""
+
+HOUSING_AD_01 = """
+<p class="row" data-pid="5458670201" data-repost-of="5442617403">
+    <a href="/apa/5458670201.html" class="i" data-ids="0:00Y0Y_59hNHxxj0SI,0:00101_9nuN2dM1JPT,0:00R0R_hUN9R5mOXiC,0:00u0u_kVZTswDZnP2,0:01313_6dM6Dh8kUMI,0:00Q0Q_k5DwQIz4MS1,0:00L0L_1BcqhsqXUxt,0:00D0D_bqnpC0fsXUX,0:00w0w_iN8jPNtstLK"></a>
+    <span class="txt">
+        <span class="star"></span>
+        <span class="pl">
+            <time datetime="2016-02-21 19:34" title="Sun 21 Feb 07:34:20 PM">Feb 21</time>
+            <a href="/apa/5458670201.html" data-id="5458670201" class="hdrlnk">Prelease For August 2016 - 4 Bedroom Close To UT campus</a>
+        </span>
+        <span class="l2">
+            <span class="price">$2695</span>
+            <span class="housing">/ 4br - </span>
+            <span class="pnr"> <small> (East Campus)</small>
+                <span class="px">
+                    <span class="p"> pic
+                        <span class="maptag" data-pid="5458670201">map</span>
+                    </span>
+                </span>
+            </span>
+        </span>
+        <span class="js-only banish-unbanish">
+            <span class="banish" title="hide">
+                <span class="trash"></span>
+            </span>
+            <span class="unbanish" title="restore">
+                <span class="trash red"></span>
             </span>
         </span>
     </span>
