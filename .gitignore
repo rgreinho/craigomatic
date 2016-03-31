@@ -19,7 +19,6 @@
 .webassets-cache
 bin
 build
-craigomatic/settings/production.py
 develop-eggs
 dist
 docs/_build
