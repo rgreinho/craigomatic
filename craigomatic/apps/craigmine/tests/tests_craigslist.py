@@ -6,6 +6,7 @@ from lxml import html
 
 from craigmine.craigslist import Craigslist
 from craigmine.craigslist import CraigslistItem
+from craigmine.craigslist import querystring_to_dict
 from craigmine.tests.ad_samples import FULL_RESULT_PAGE_FIXIES
 from craigmine.tests.ad_samples import HOUSING_AD
 
@@ -59,4 +60,18 @@ class CraigslistItemTestCase(TestCase):
     def test_title(self):
         actual = self.cl_item.title()
         expected = 'Round Rock, Forest Creek Area,'
+        self.assertEqual(actual, expected)
+
+
+class OtherFunctionsTestCase(TestCase):
+    def test_querystring_to_dict_00(self):
+        querystring = 'sort=date&bathrooms=3'
+        actual = querystring_to_dict(querystring)
+        expected = {'sort': 'date', 'bathrooms': '3'}
+        self.assertEqual(actual, expected)
+
+    def test_querystring_to_dict_01(self):
+        querystring = 'housing_type=6&housing_type=9&max_price=1000'
+        actual = querystring_to_dict(querystring)
+        expected = {'housing_type': ['6', '9'], 'max_price': '1000'}
         self.assertEqual(actual, expected)

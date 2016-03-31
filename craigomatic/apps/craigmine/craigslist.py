@@ -252,3 +252,44 @@ class CraigslistItem:
                      'title': self.title()}
 
         return item_dict
+
+
+def querystring_to_dict(querystring):
+    """
+    Returns a dictionary representing the query string.
+
+    The dictionary created by this function can then be consumed directly by the requests API.
+
+    :param str querystring: querystring to process
+    :returns:a dictionary representing the query string.
+    """
+    # Create en empty dictionary to store the results.
+    params = {}
+
+    # Return directly if there is no quesrystring to parse.
+    if not querystring:
+        return params
+
+    # Split the full querystring into parameters.
+    parameters = querystring.split('&')
+
+    # Loop through them.
+    for parameter in parameters:
+        # Try to split the query parameter to check whether it is a key/value pair.
+        keyvalue = parameter.split('=', maxsplit=1)
+
+        # Ensure we have a key/value pair.
+        if len(keyvalue) == 2:
+            existing_value = params.get(keyvalue[0])
+            if existing_value:
+                # Create a new or list or use the existing one.
+                value_list = existing_value if isinstance(existing_value, list) else [existing_value]
+
+                # Add the new value to the list.
+                value_list.append(keyvalue[1])
+
+                # Update the value in the dictionary.
+                params[keyvalue[0]] = value_list
+            else:
+                params[keyvalue[0]] = keyvalue[1]
+    return params
