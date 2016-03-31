@@ -3,7 +3,7 @@ import os
 
 
 DEBUG = False
-TEMPLATES['OPTIONS']['debug'] = DEBUG
+TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 
 SECRET_KEY = os.environ["SECRET_KEY"]
 
@@ -16,6 +16,6 @@ DATABASES = {
         'USER': os.environ['DB_USER'],
         'PASSWORD': os.environ.get('DB_PASSWORD', ''),
         'HOST': os.environ.get('DB_HOST', ''),
-        'PORT': os.environ.get('DB_PORT', ''),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
