@@ -2,9 +2,12 @@ import os
 import sys
 
 # PATH vars
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-root = lambda *x: os.path.join(BASE_DIR, *x)
+
+
+def root(x):
+    return os.path.join(BASE_DIR, x)
+
 
 sys.path.insert(0, root('apps'))
 
@@ -69,17 +72,18 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = root('static')
 STATIC_URL = '/static/'
+# ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 # Additional locations of static files
-
 STATICFILES_DIRS = (
     root('assets'),
-    root('assets/css'),
-    root('assets/js'),
 )  # yapf: disable
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 TEMPLATES = [
     {
