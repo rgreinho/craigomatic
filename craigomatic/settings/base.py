@@ -77,7 +77,8 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     root('assets'),
-    root('static'),
+    root('assets/css'),
+    root('assets/js'),
 )  # yapf: disable
 
 TEMPLATES = [
