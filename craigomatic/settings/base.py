@@ -1,6 +1,8 @@
 import os
 import sys
 
+import dj_database_url
+
 # PATH vars
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -16,12 +18,12 @@ SECRET_KEY = 'CHANGE THIS!!!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-IN_TESTING = sys.argv[1:2] == ['test']
 
-ALLOWED_HOSTS = []
+# Allow all host headers
+# SECURITY WARNING: don't run with this setting in production!
+ALLOWED_HOSTS = ['*']
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -61,15 +63,10 @@ MANAGERS = ADMINS
 WSGI_APPLICATION = 'craigomatic.wsgi.application'
 
 # Internationalization
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'America/Chicago'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
@@ -85,6 +82,7 @@ STATICFILES_DIRS = (
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
+# Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -108,7 +106,6 @@ TEMPLATES = [
 ]  # yapf: disable
 
 # Password validation
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -124,18 +121,21 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Database
+# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}  # yapf: disable
+
+# Update database configuration with ${DATABASE_URL}.
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
 # Django-crontab
 CRONJOBS = [
-    ('* 4,10,16,22 * * *', 'craigmine.management.commands.index,index_content'),
+    ('* 4,10,16,22 * * *', 'craigmine.management.commands.index.index_content'),
     ('* 2 * * *', 'craigmine.management.commands.purge.delete_items', ['7']),
 ]
-
-# .local.py overrides all the common settings.
-try:
-    from .local import *  # noqa
-except ImportError:
-    pass
-
-# importing test settings file if necessary
-if IN_TESTING:
-    from .testing import *  # noqa
