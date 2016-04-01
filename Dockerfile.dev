@@ -1,0 +1,18 @@
+FROM python:3.5
+
+MAINTAINER Rémy Greinhofer <remy.greinhofer@gmail.com>
+
+# Create the directory containing the code.
+RUN mkdir /code
+WORKDIR /code
+
+# Define environment variables.
+ENV PYTHONUNBUFFERED 1
+ENV DATABASE_URL postgres://postgres:postgres@db:5432/postgres
+ENV REDIS_URL redis://redis:6379
+
+# Copy the requirements files.
+COPY requirements/* /code/
+
+# Install the pip packages.
+RUN pip install -q -r local.txt

@@ -1,0 +1,24 @@
+version: '2'
+services:
+  db:
+    image: postgres
+  nginx:
+    build: ./docker/nginx
+    depends_on:
+      - django
+    ports:
+      - "80:80"
+  redis:
+    image: redis:3.0
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: gunicorn -b 0.0.0.0:8000 craigomatic.wsgi 
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis

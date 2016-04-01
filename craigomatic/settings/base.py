@@ -1,4 +1,5 @@
 import os
+from urllib.parse import urlparse
 import sys
 
 import dj_database_url
@@ -133,6 +134,19 @@ DATABASES = {
 # Update database configuration with ${DATABASE_URL}.
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
+
+# Cache
+redis_url = urlparse(os.environ.get('REDIS_URL'))
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "{0}:{1}".format(redis_url.hostname, redis_url.port),
+        "OPTIONS": {
+            "PASSWORD": redis_url.password,
+            "DB": 0,
+        }
+    }
+}
 
 # Django-crontab
 CRONJOBS = [
