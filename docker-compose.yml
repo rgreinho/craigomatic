@@ -3,7 +3,7 @@ services:
   db:
     image: postgres
   nginx:
-    build: ./docker/nginx
+    build: docker/nginx
     depends_on:
       - django
     ports:
@@ -14,7 +14,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    command: gunicorn -b 0.0.0.0:8000 craigomatic.wsgi 
+    entrypoint: bash /django-entrypoint.sh
     volumes:
       - .:/code
     ports:
@@ -22,3 +22,35 @@ services:
     depends_on:
       - db
       - redis
+  celery_beat:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    entrypoint:  bash /celery-entrypoint.sh
+    command: beat
+    depends_on:
+      - django
+    volumes:
+      - .:/code
+  celery_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    entrypoint: bash /celery-entrypoint.sh
+    command: worker
+    depends_on:
+      - django
+    volumes:
+      - .:/code
+  celery_flower:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    entrypoint: bash /celery-entrypoint.sh
+    command: flower
+    depends_on:
+      - django
+    ports:
+      - "5555:5555"
+    volumes:
+      - .:/code

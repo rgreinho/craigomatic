@@ -1,3 +1,6 @@
+*.bak
+*.dat
+*.dir
 *.egg
 *.egg-info
 *.iml
@@ -5,7 +8,9 @@
 *.iws
 *.log
 *.mo
+*.pid
 *.py[codt]
+*.sqlite3
 *.so
 .coverage
 .DS_Store
