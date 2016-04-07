@@ -10,11 +10,15 @@ services:
       - "80:80"
   redis:
     image: redis:3.0
+  rabbitmq:
+    image: rabbitmq:3.6-management
+    ports:
+      - "15672:15672"
   django:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    entrypoint: bash /django-entrypoint.sh
+    entrypoint: bash -c /django-entrypoint.sh
     volumes:
       - .:/code
     ports:
@@ -26,30 +30,30 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    entrypoint:  bash /celery-entrypoint.sh
-    command: beat
+    command: bash /celery-entrypoint.sh beat
     depends_on:
       - django
+      - rabbitmq
     volumes:
       - .:/code
   celery_worker:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    entrypoint: bash /celery-entrypoint.sh
-    command: worker
+    command: bash /celery-entrypoint.sh worker
     depends_on:
       - django
+      - rabbitmq
     volumes:
       - .:/code
   celery_flower:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    entrypoint: bash /celery-entrypoint.sh
-    command: flower
+    command: bash /celery-entrypoint.sh flower
     depends_on:
       - django
+      - rabbitmq
     ports:
       - "5555:5555"
     volumes:

@@ -4,11 +4,14 @@ MAINTAINER Rémy Greinhofer <remy.greinhofer@gmail.com>
 
 # Create the directory containing the code.
 RUN mkdir -p /code /requirements
-WORKDIR /requirements
+WORKDIR /code
 
 # Define environment variables.
 ENV PYTHONUNBUFFERED 1
 ENV DATABASE_URL postgres://postgres:postgres@db:5432/postgres
+ENV REDIS_URL redis://redis:6379
+ENV CELERY_BROKER_URL amqp://guest:guest@rabbitmq:5672//
+ENV CELERY_RESULT_BACKEND amqp://guest:guest@rabbitmq:5672//
 
 # Update the package list.
 RUN apt-get update \
@@ -27,7 +30,7 @@ RUN apt-get update \
 COPY requirements/* /requirements/
 
 # Install the pip packages.
-RUN pip install -q -r local.txt
+RUN pip install -q -r /requirements/local.txt
 
 # Copy django entry point.
 COPY docker/craigomatic/django-entrypoint.sh /
@@ -37,6 +40,3 @@ RUN adduser --disabled-password --gecos '' celery
 
 # Copy celery worker entry point.
 COPY docker/craigomatic/celery-entrypoint.sh /
-
-# Change workdir.
-WORKDIR /code

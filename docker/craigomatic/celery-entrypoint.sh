@@ -12,4 +12,4 @@ done;
 
 # Start Celery command.
 DATE=$(date -u +%Y-%m-%dT%H%M%S%Z)
-exec su -m celery -c "celery ${CELERY_COMMAND} -A craigomatic -l info --pidfile=celery_worker-${DATE}.pid"
+su -m celery -c "celery ${CELERY_COMMAND} -A craigomatic -l info --pidfile=celery_worker-${DATE}.pid"
